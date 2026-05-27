@@ -1,7 +1,7 @@
-<<<<<<< HEAD
-/mvnw text eol=lf
-*.cmd text eol=crlf
-=======
+<<<<<<<<< Temporary merge branch 1
 # Auto detect text files and perform LF normalization
 * text=auto
->>>>>>> 8ff12a815c264761d2b65d4945366285d8c8924f
+=========
+/mvnw text eol=lf
+*.cmd text eol=crlf
+>>>>>>>>> Temporary merge branch 2
