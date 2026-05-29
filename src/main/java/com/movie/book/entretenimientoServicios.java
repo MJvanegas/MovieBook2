@@ -1,25 +1,24 @@
 package com.movie.book;
 
-import org.springframework.beans.factory.annotation.autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.stereotype.service;
-import java.util.list;
+import java.util.List;
 
 @Service
-public class entretenimientoServicios {
+public class EntretenimientoServicios {
 
-    @autowired
-    private entretenimientoRepositorio repository;
+    @Autowired
+    private EntretenimientoRepositorio repository;
 
-    public list<entretenimiento> obtenerTodos() {
+    public List<Entretenimiento> obtenerTodos() {
         return repository.findAll();
     }
 
-    public list<entretenimiento> obtenerPorTipo(String tipo) {
-        return repository.findbytipo(tipo);
+    public List<Entretenimiento> obtenerPorTipo(String tipo) {
+        return repository.findByTipo(tipo);
     }
 
-    public void guardar(entretenimiento entretenimiento) {
-        repository.Save(entretenimiento);
+    public void guardarRegistro(Entretenimiento entretenimiento) {
+        repository.save(entretenimiento);
     }
 }

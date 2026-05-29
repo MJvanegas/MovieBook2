@@ -1,13 +1,10 @@
 package com.movie.book;
 
-import org.springframework.data.jpa.repository.jparepository;
-import org.springframework.stereotype.repository;
-import java.util.list;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import java.util.List;
 
-@repository 
-public interface entretenimientoRepositorio extends jparepository<entretenimiento,Long> 
-{
-list <entretenimiento> findbytipo(string tipo);
-
-    
+@Repository 
+public interface EntretenimientoRepositorio extends JpaRepository<Entretenimiento, Long> {
+    List<Entretenimiento> findByTipo(String tipo);
 }

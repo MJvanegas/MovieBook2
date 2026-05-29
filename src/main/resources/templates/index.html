@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Gestor Multimedia</title>
-  <!-- Fuente Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="estilos.css">
+  <link rel="stylesheet" th:href="@{/estilos.css}">
 </head>
 <body>
   <div class="tabs">
@@ -17,24 +16,26 @@
   </div>
 
   <div class="content">
-    <!-- Vista principal con todos los registros mezclados -->
     <div id="principal" class="panel">
       <h2>Todos los registros</h2>
       <table>
         <thead>
-          <tr>
-            <th>Título</th><th>Tipo</th><th>Año</th><th>Estado</th><th>Calificación</th><th>Persona</th><th>Comentario</th>
-          </tr>
+          <tr><th>Título</th><th>Tipo</th><th>Año</th><th>Estado</th><th>Calificación</th><th>Persona</th><th>Comentario</th></tr>
         </thead>
         <tbody>
-          <tr><td>Inception</td><td>Película</td><td>2010</td><td>Visto</td><td>5</td><td>Juan</td><td>Excelente</td></tr>
-          <tr><td>Breaking Bad</td><td>Serie</td><td>2008</td><td>Visto</td><td>5</td><td>Ana</td><td>Intensa</td></tr>
-          <tr><td>Cien años de soledad</td><td>Libro</td><td>1967</td><td>Leído</td><td>5</td><td>Carlos</td><td>Obra maestra</td></tr>
+          <tr th:each="item : ${Todos}">
+            <td th:text="${item.titulo}"></td>
+            <td th:text="${item.tipo}"></td>
+            <td th:text="${item.anio}"></td>
+            <td th:text="${item.estado}"></td>
+            <td th:text="${item.calificacion}"></td>
+            <td th:text="${item.vistoPor}"></td>
+            <td th:text="${item.comentario}"></td>
+          </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- Películas -->
     <div id="peliculas" class="panel">
       <h2>Películas</h2>
       <table>
@@ -42,12 +43,14 @@
           <tr><th>Título</th><th>Año</th><th>Estado</th><th>Calificación</th><th>Persona</th><th>Comentario</th></tr>
         </thead>
         <tbody>
-          <tr><td>Inception</td><td>2010</td><td>Visto</td><td>5</td><td>Juan</td><td>Excelente</td></tr>
+          <tr th:each="item : ${Peliculas}">
+             <td th:text="${item.titulo}"></td><td th:text="${item.anio}"></td><td th:text="${item.estado}"></td>
+             <td th:text="${item.calificacion}"></td><td th:text="${item.vistoPor}"></td><td th:text="${item.comentario}"></td>
+          </tr>
         </tbody>
       </table>
     </div>
-
-    <!-- Series -->
+    
     <div id="series" class="panel">
       <h2>Series</h2>
       <table>
@@ -55,12 +58,14 @@
           <tr><th>Título</th><th>Año</th><th>Estado</th><th>Calificación</th><th>Persona</th><th>Comentario</th></tr>
         </thead>
         <tbody>
-          <tr><td>Breaking Bad</td><td>2008</td><td>Visto</td><td>5</td><td>Ana</td><td>Intensa</td></tr>
+          <tr th:each="item : ${Series}">
+             <td th:text="${item.titulo}"></td><td th:text="${item.anio}"></td><td th:text="${item.estado}"></td>
+             <td th:text="${item.calificacion}"></td><td th:text="${item.vistoPor}"></td><td th:text="${item.comentario}"></td>
+          </tr>
         </tbody>
       </table>
     </div>
-
-    <!-- Libros -->
+    
     <div id="libros" class="panel">
       <h2>Libros</h2>
       <table>
@@ -68,40 +73,42 @@
           <tr><th>Título</th><th>Año</th><th>Estado</th><th>Calificación</th><th>Persona</th><th>Comentario</th></tr>
         </thead>
         <tbody>
-          <tr><td>Cien años de soledad</td><td>1967</td><td>Leído</td><td>5</td><td>Carlos</td><td>Obra maestra</td></tr>
+          <tr th:each="item : ${Libros}">
+             <td th:text="${item.titulo}"></td><td th:text="${item.anio}"></td><td th:text="${item.estado}"></td>
+             <td th:text="${item.calificacion}"></td><td th:text="${item.vistoPor}"></td><td th:text="${item.comentario}"></td>
+          </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- Formulario abajo -->
   <div id="formulario" class="form-section">
     <h2>Agregar Registro</h2>
-    <form>
-      <label>Título: <input type="text" name="titulo"></label>
+    <form th:action="@{/guardar}" th:object="${nuevoRegistro}" method="post">
+      <label>Título: <input type="text" th:field="*{titulo}"></label>
       <label>Tipo:
-        <select name="tipo">
-          <option>Película</option>
-          <option>Serie</option>
-          <option>Libro</option>
+        <select th:field="*{tipo}">
+          <option value="Película">Película</option>
+          <option value="Serie">Serie</option>
+          <option value="Libro">Libro</option>
         </select>
       </label>
-      <label>Año: <input type="number" name="anio"></label>
+      <label>Año: <input type="number" th:field="*{anio}"></label>
       <label>Estado:
-        <select name="estado">
-          <option>Por ver/leer</option>
-          <option>En curso</option>
-          <option>Visto/Leído</option>
+        <select th:field="*{estado}">
+          <option value="Por ver/leer">Por ver/leer</option>
+          <option value="En curso">En curso</option>
+          <option value="Visto/Leído">Visto/Leído</option>
         </select>
       </label>
       <label>Calificación:
-        <select name="calificacion">
-          <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+        <select th:field="*{calificacion}">
+          <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
         </select>
       </label>
-      <label>Visto/Leído por: <input type="text" name="persona"></label>
+      <label>Visto/Leído por: <input type="text" th:field="*{vistoPor}"></label>
       <label>Reseña/Comentario:
-        <textarea name="comentario"></textarea>
+        <textarea th:field="*{comentario}"></textarea>
       </label>
       <button type="submit">Guardar</button>
     </form>
